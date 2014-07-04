@@ -1,5 +1,6 @@
 {
     "name": "netgusto/autoroute-bundle",
+    "version": "1.0.0",
     "type": "symfony-bundle",
     "description": "Symfony2 Autoroute Bundle",
     "keywords": ["symfony", "autoroute"],
