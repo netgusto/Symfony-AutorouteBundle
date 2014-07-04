@@ -1,0 +1,3 @@
+autoroute.routeloader:
+    resource: autoroute # Required by Symfony, but not used
+    type: autoroute
