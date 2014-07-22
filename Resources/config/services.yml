@@ -1,5 +1,7 @@
 services:
     autoroute:
         class: Netgusto\AutorouteBundle\Services\AutorouteService
+        arguments:
+            - @file_locator
         tags:
             - { name: routing.loader }

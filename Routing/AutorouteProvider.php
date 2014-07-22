@@ -14,11 +14,16 @@ class AutorouteProvider implements AutorouteProviderInterface {
 
     public function __construct($resourcepath) {
         $this->resourcepath = $resourcepath;
+        if($this->resourcepath{0} === '\\' && $this->resourcepath{1} === '@') {
+            $this->resourcepath = ltrim($this->resourcepath, '\\');
+        }
     }
 
-    public function getRouteCollection(LoaderResolverInterface $resolver) {
+    public function getRouteCollection(FileLocator $fileLocator, LoaderResolverInterface $resolver) {
         $loader = new YamlFileLoader(new FileLocator());
         $loader->setResolver($resolver);
-        return $loader->load($this->resourcepath);
+        return $loader->load(
+            $fileLocator->locate($this->resourcepath)
+        );
     }
 }

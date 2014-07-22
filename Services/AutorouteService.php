@@ -6,7 +6,8 @@ use Symfony\Component\Config\Loader\LoaderResolverInterface,
     Symfony\Component\Config\Loader\LoaderResolver,
     Symfony\Component\Config\Loader\LoaderInterface,
     Symfony\Component\Routing\Route,
-    Symfony\Component\Routing\RouteCollection;
+    Symfony\Component\Routing\RouteCollection,
+    Symfony\Component\HttpKernel\Config\FileLocator;
 
 use Netgusto\AutorouteBundle\Services\AutorouteProviderInterface;
 
@@ -14,7 +15,8 @@ class AutorouteService implements LoaderInterface {
 
     protected $autorouteproviders;
 
-    public function __construct() {
+    public function __construct(FileLocator $fileLocator) {
+        $this->fileLocator = $fileLocator;
         $this->autorouteproviders = array();
     }
 
@@ -33,6 +35,7 @@ class AutorouteService implements LoaderInterface {
         foreach($this->autorouteproviders as $autorouteprovider) {
 
             $routes = $autorouteprovider['provider']->getRouteCollection(
+                $this->fileLocator,
                 $this->getResolver()
             );
             
